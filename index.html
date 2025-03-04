@@ -12,7 +12,7 @@
             font-family: Arial, sans-serif;
         }
         body {
-            background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwSsJmDAo7O46BXlhzGm6ge5IFhb5R4jMit6HHEH4GgYrfTPuq_irSslA&s=10') no-repeat center center fixed;
+            background: url('background.jpg') no-repeat center center fixed;
             background-size: cover;
             display: flex;
             justify-content: center;
@@ -26,8 +26,7 @@
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
             text-align: center;
             color: white;
-            width: 100%;
-            max-width: 400px;
+            width: 350px;
         }
         .login-container h2 {
             margin-bottom: 20px;
@@ -50,7 +49,6 @@
             border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
-            transition: 0.3s;
         }
         button:hover {
             background: #218838;
@@ -73,11 +71,12 @@
             var message = document.getElementById("message");
 
             if (key === "9363") {
-                message.innerHTML = "LOGIN SUCCESS!";
+                message.innerHTML = "Login Successful!";
                 message.className = "message success";
 
+                // Open the link in full screen after 2 seconds
                 setTimeout(function() {
-                    window.location.href = "https://arunsurya111.github.io/hackersurya/";
+                    openFullScreen();
                 }, 2000);
             } else {
                 message.innerHTML = "Access Denied! Incorrect Key.";
@@ -85,19 +84,20 @@
             }
         }
 
-        document.addEventListener("keydown", function(event) {
-            if (event.key === "Enter") {
-                validateLogin();
+        function openFullScreen() {
+            var newWindow = window.open("https://arunsurya111.github.io/hackersurya/", "_blank", "fullscreen=yes");
+            if (!newWindow || newWindow.closed || typeof newWindow.closed == "undefined") {
+                alert("Popup blocked! Please allow popups for full-screen mode.");
+                window.location.href = "https://arunsurya111.github.io/hackersurya/";
             }
-        });
+        }
     </script>
 </head>
 <body>
 
     <div class="login-container">
-        <h2>LOGIN PAGE</h2>
-        <h2>PROTECTED BY AI</h2>
-        <input type="password" id="key" placeholder="ENTER KEY">
+        <h2>Secure Login</h2>
+        <input type="password" id="key" placeholder="Enter Security Key">
         <button onclick="validateLogin()">Login</button>
         <p id="message" class="message"></p>
     </div>
