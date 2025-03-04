@@ -26,7 +26,8 @@
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
             text-align: center;
             color: white;
-            width: 350px;
+            width: 100%;
+            max-width: 400px;
         }
         .login-container h2 {
             margin-bottom: 20px;
@@ -38,6 +39,7 @@
             border: none;
             border-radius: 5px;
             font-size: 16px;
+            text-align: center;
         }
         button {
             width: 100%;
@@ -48,6 +50,7 @@
             border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
+            transition: 0.3s;
         }
         button:hover {
             background: #218838;
@@ -69,26 +72,31 @@
             var key = document.getElementById("key").value;
             var message = document.getElementById("message");
 
-            if (key === "9363") {
-                message.innerHTML = "LOGIN SUCCESS !";
+            if (key === "9344") {
+                message.innerHTML = "LOGIN SUCCESS!";
                 message.className = "message success";
 
-                // Redirect to your site after 2 seconds
                 setTimeout(function() {
                     window.location.href = "https://arunsurya111.github.io/hackersurya/";
                 }, 2000);
             } else {
-                message.innerHTML = "Access Denied! Incorrect buy Key.";
+                message.innerHTML = "Access Denied! Incorrect Key.";
                 message.className = "message error";
             }
         }
+
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                validateLogin();
+            }
+        });
     </script>
 </head>
 <body>
 
     <div class="login-container">
         <h2>LOGIN PAGE</h2>
-        <h2>PROTECTED BY AI </h2>
+        <h2>PROTECTED BY AI</h2>
         <input type="password" id="key" placeholder="ENTER KEY">
         <button onclick="validateLogin()">Login</button>
         <p id="message" class="message"></p>
