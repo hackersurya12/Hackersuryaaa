@@ -1,111 +1,272 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Login</title>
+    <title>Login Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: "Poppins", sans-serif;
         }
+
         body {
-            background: url('https://i.pinimg.com/originals/7c/e6/23/7ce623595aa44dfc86e1427410cbc07c.gif') no-repeat center center fixed;
+            background: url("https://i.pinimg.com/originals/7c/e6/23/7ce623595aa44dfc86e1427410cbc07c.gif") no-repeat center center fixed;
             background-size: cover;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            flex-direction: column;
+            position: relative;
         }
-        .login-container {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-            text-align: center;
-            color: white;
-            width: 100%;
-            max-width: 400px;
-            animation: fadeIn 1s ease-in-out;
+
+        /* Top Buttons */
+        .top-buttons {
+            position: absolute;
+            top: 20px;
+            display: flex;
+            gap: 15px;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        .login-container h2 {
-            margin-bottom: 20px;
-        }
-        input {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border: none;
+
+        .top-buttons a {
+            text-decoration: none;
+            padding: 10px 15px;
             border-radius: 5px;
-            font-size: 16px;
+            font-size: 1em;
+            font-weight: bold;
+            color: #000;
+            transition: 0.3s ease-in-out;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
             text-align: center;
         }
+
+        .whatsapp {
+            background: linear-gradient(45deg, #25D366, #128C7E);
+        }
+
+        .youtube {
+            background: linear-gradient(45deg, #FF0000, #CC0000);
+            color: white;
+        }
+
+        .top-buttons a:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+        }
+
+        .box {
+            width: 400px;
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+            text-align: center;
+            transition: 0.3s ease-in-out;
+        }
+
+        h2 {
+            font-size: 2em;
+            color: #0ff;
+            text-shadow: 0 0 10px #0ff;
+        }
+
+        .inputbox {
+            position: relative;
+            margin: 30px 0;
+            width: 100%;
+            border-bottom: 2px solid #0ff;
+        }
+
+        .inputbox label {
+            position: absolute;
+            top: 50%;
+            left: 5px;
+            transform: translateY(-50%);
+            color: #0ff;
+            font-size: 1em;
+            transition: 0.5s;
+        }
+
+        input:focus~label,
+        input:valid~label {
+            top: -5px;
+            color: #fff;
+        }
+
+        .inputbox input {
+            width: 100%;
+            height: 40px;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 1.1em;
+            padding: 0 10px;
+            color: #fff;
+        }
+
+        .inputbox ion-icon {
+            position: absolute;
+            right: 10px;
+            color: #0ff;
+            font-size: 1.2em;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
         button {
             width: 100%;
-            padding: 12px;
-            background: #28a745;
-            color: white;
+            height: 45px;
+            border-radius: 25px;
+            background: linear-gradient(45deg, #0ff, #00f);
             border: none;
-            border-radius: 5px;
-            font-size: 16px;
+            outline: none;
             cursor: pointer;
-            transition: 0.3s;
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #000;
+            transition: 0.3s ease-in-out;
         }
+
         button:hover {
-            background: #218838;
+            background: linear-gradient(45deg, #00f, #0ff);
+            box-shadow: 0 0 10px #0ff;
+            transform: scale(1.05);
         }
-        .message {
-            margin-top: 15px;
-            font-size: 18px;
+
+        .register {
+            font-size: 0.9em;
+            color: #fff;
+            margin-top: 20px;
+        }
+
+        .register a {
+            text-decoration: none;
+            color: #0ff;
             font-weight: bold;
         }
-        .success {
-            color: #4CAF50;
+
+        .register a:hover {
+            text-decoration: underline;
         }
-        .error {
-            color: #FF0000;
+
+        /* Success Popup */
+        .success-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            color: #0ff;
+            box-shadow: 0 0 15px #0ff;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -55%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        .success-popup button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border: none;
+            background: #0ff;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s ease-in-out;
+        }
+
+        .success-popup button:hover {
+            background: #00f;
+            color: #fff;
+        }
+
+        /* Iframe Styling */
+        #webpage {
+            width: 100%;
+            height: 100vh;
+            border: none;
+            display: none;
         }
     </style>
+</head>
+
+<body>
+
+    <!-- Top Buttons -->
+    <div class="top-buttons">
+        <a class="whatsapp" href="https://chat.whatsapp.com/your-whatsapp-group-link" target="_blank">Join WhatsApp</a>
+        <a class="youtube" href="https://www.youtube.com/channel/your-youtube-channel" target="_blank">Subscribe YouTube</a>
+    </div>
+
+    <!-- Login Box -->
+    <div class="box" id="login-box">
+        <form onsubmit="return validateKey(event)">
+            <h2>LOGIN PAGE</h2>
+
+            <div class="inputbox">
+                <ion-icon name="lock-closed-outline"></ion-icon>
+                <input type="text" name="key" id="key" required>
+                <label for="key"> ENTER KEY</label>
+            </div>
+
+            <button type="submit">LOGIN</button>
+
+            <div class="register">
+                <p>BUY KEY BY SURYA BCA ? <a href="https://t.me/Suryarunl">BUY KEY</a></p>
+            </div>
+        </form>
+    </div>
+
+    <!-- Success Popup -->
+    <div class="success-popup" id="success-popup">
+        <h2>LOGIN SUCCESS ✔</h2>
+        <p>WELCOME TO THE SURYA SYSTEM</p>
+        <button onclick="showWebsite()">Continue</button>
+    </div>
+
+    <!-- Hidden Iframe to Load the Website -->
+    <iframe id="webpage" src="https://arunsurya111.github.io/hackersurya/"></iframe>
+
     <script>
-        function validateLogin() {
-            var key = document.getElementById("key").value;
-            var message = document.getElementById("message");
+        function validateKey(event) {
+            event.preventDefault();
+            let keyInput = document.getElementById("key").value;
 
-            if (key === "1612") {
-                message.innerHTML = "LOGIN SUCCESS!";
-                message.className = "message success";
-
-                setTimeout(function() {
-                    window.location.href = "https://arunsurya111.github.io/hackersurya/";
-                }, 2000);
+            if (keyInput === "arun") {
+                document.getElementById("login-box").style.display = "none"; // Hide login box
+                document.getElementById("success-popup").style.display = "block"; // Show success popup
             } else {
-                message.innerHTML = "Access Denied! Incorrect Key.";
-                message.className = "message error";
+                alert("❌ INVALID KEY BUY KEY.");
             }
         }
 
-        document.addEventListener("keydown", function(event) {
-            if (event.key === "Enter") {
-                validateLogin();
-            }
-        });
+        function showWebsite() {
+            document.getElementById("success-popup").style.display = "none"; // Hide popup
+            document.getElementById("webpage").style.display = "block"; // Show the webpage
+        }
     </script>
-</head>
-<body>
-
-    <div class="login-container">
-        <h2>LOGIN PAGE</h2>
-        <h2>PROTECTED BY AI</h2>
-        <input type="password" id="key" placeholder="ENTER KEY">
-        <button onclick="validateLogin()">Login</button>
-        <p id="message" class="message"></p>
-    </div>
 
 </body>
+
 </html>
