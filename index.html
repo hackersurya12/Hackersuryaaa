@@ -178,6 +178,7 @@
                 opacity: 0;
                 transform: translate(-50%, -55%);
             }
+
             to {
                 opacity: 1;
                 transform: translate(-50%, -50%);
@@ -214,7 +215,7 @@
 <body>
 
     <!-- Top Buttons -->
-    <div class="top-buttons">
+    <div class="top-buttons" id="top-buttons">
         <a class="whatsapp" href="https://chat.whatsapp.com/your-whatsapp-group-link" target="_blank">Join WhatsApp</a>
         <a class="youtube" href="https://www.youtube.com/channel/your-youtube-channel" target="_blank">Subscribe YouTube</a>
     </div>
@@ -254,16 +255,17 @@
             let keyInput = document.getElementById("key").value;
 
             if (keyInput === "arun") {
-                document.getElementById("login-box").style.display = "none"; // Hide login box
-                document.getElementById("success-popup").style.display = "block"; // Show success popup
+                document.getElementById("login-box").style.display = "none"; 
+                document.getElementById("success-popup").style.display = "block"; 
+                document.getElementById("top-buttons").style.display = "none"; 
             } else {
                 alert("❌ INVALID KEY BUY KEY.");
             }
         }
 
         function showWebsite() {
-            document.getElementById("success-popup").style.display = "none"; // Hide popup
-            document.getElementById("webpage").style.display = "block"; // Show the webpage
+            document.getElementById("success-popup").style.display = "none";
+            document.getElementById("webpage").style.display = "block"; 
         }
     </script>
 
