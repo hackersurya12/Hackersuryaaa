@@ -12,7 +12,7 @@
             font-family: Arial, sans-serif;
         }
         body {
-            background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwSsJmDAo7O46BXlhzGm6ge5IFhb5R4jMit6HHEH4GgYrfTPuq_irSslA&s=10') no-repeat center center fixed;
+            background: url('https://i.gifer.com/origin/fd/fdd2726c56e7d9cd95ad83bef3365f38_w200.gif') no-repeat center center fixed;
             background-size: cover;
             display: flex;
             justify-content: center;
@@ -28,6 +28,11 @@
             color: white;
             width: 100%;
             max-width: 400px;
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
         }
         .login-container h2 {
             margin-bottom: 20px;
@@ -96,7 +101,7 @@
 
     <div class="login-container">
         <h2>LOGIN PAGE</h2>
-        <h3>PROTECTED BY AI</h3>
+        <h2>PROTECTED BY AI</h2>
         <input type="password" id="key" placeholder="ENTER KEY">
         <button onclick="validateLogin()">Login</button>
         <p id="message" class="message"></p>
