@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S26 Ultra Login</title>
+    <title>SURYA AI S3 ULTRA</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     
     <style>
@@ -49,7 +49,7 @@
             align-items: center;
             background: rgba(255, 255, 255, 0.2);
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
-            animation: glow 1.5s infinite alternate;
+            animation: glow 1.5s infinite alternate, moveUpDown 2s infinite ease-in-out;
         }
 
         .avatar-border {
@@ -76,6 +76,18 @@
             }
             100% {
                 box-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
+            }
+        }
+
+        @keyframes moveUpDown {
+            0% {
+                transform: translateX(-50%) translateY(0);
+            }
+            50% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            100% {
+                transform: translateX(-50%) translateY(0);
             }
         }
 
@@ -235,9 +247,9 @@
             event.preventDefault();
             let keyInput = document.getElementById("key").value;
 
-            if (keyInput === "1122") {
+            if (keyInput === "1612") {
                 alert("Login Successful!");
-                window.location.href = "https://arunsurya111.github.io/hackersuryaa/";
+                window.location.href = "https://arunsurya111.github.io/hackersurya/";
             } else {
                 alert("Invalid Key! Try again.");
             }
