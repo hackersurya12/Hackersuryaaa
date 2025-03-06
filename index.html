@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+
+
+        <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,83 +8,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css">
 
     <style>
         * {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
             font-family: "Poppins", sans-serif;
         }
 
         body {
-            background: url("https://i.pinimg.com/originals/7c/e6/23/7ce623595aa44dfc86e1427410cbc07c.gif") no-repeat center center fixed;
-            background-size: cover;
+            background-color: #000;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
+            background: url("https://i.pinimg.com/originals/7c/e6/23/7ce623595aa44dfc86e1427410cbc07c.gif") no-repeat;
+            background-position: center;
+            background-size: cover;
+            width: 100%;
             flex-direction: column;
-            position: relative;
         }
 
-        /* Top Buttons */
-        .top-buttons {
+        .button-container {
             position: absolute;
             top: 20px;
             display: flex;
             gap: 15px;
         }
 
-        .top-buttons a {
-            text-decoration: none;
-            padding: 10px 15px;
-            border-radius: 5px;
+        .button-container button {
+            padding: 10px 20px;
             font-size: 1em;
             font-weight: bold;
-            color: #000;
-            transition: 0.3s ease-in-out;
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-            text-align: center;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
         }
 
-        .whatsapp {
-            background: linear-gradient(45deg, #25D366, #128C7E);
-        }
-
-        .youtube {
-            background: linear-gradient(45deg, #FF0000, #CC0000);
-            color: white;
-        }
-
-        .top-buttons a:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+        .button-container button i {
+            font-size: 1.2em;
         }
 
         .box {
             width: 400px;
-            padding: 20px;
-            border-radius: 15px;
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
-            text-align: center;
-            transition: 0.3s ease-in-out;
+            height: 350px;
+            border: 2px solid #625d5d;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            background: transparent;
         }
 
         h2 {
             font-size: 2em;
-            color: #0ff;
-            text-shadow: 0 0 10px #0ff;
+            color: #fff;
+            text-align: center;
         }
 
         .inputbox {
             position: relative;
             margin: 30px 0;
-            width: 100%;
-            border-bottom: 2px solid #0ff;
+            width: 300px;
+            border-bottom: 2px solid #fff;
         }
 
         .inputbox label {
@@ -90,123 +86,65 @@
             top: 50%;
             left: 5px;
             transform: translateY(-50%);
-            color: #0ff;
+            color: #fff;
             font-size: 1em;
+            pointer-events: none;
             transition: 0.5s;
         }
 
         input:focus~label,
         input:valid~label {
             top: -5px;
-            color: #fff;
         }
 
         .inputbox input {
             width: 100%;
-            height: 40px;
+            height: 50px;
             background: transparent;
             border: none;
             outline: none;
-            font-size: 1.1em;
-            padding: 0 10px;
+            font-size: 1em;
+            padding: 0 35px 0 5px;
             color: #fff;
         }
 
         .inputbox ion-icon {
             position: absolute;
-            right: 10px;
-            color: #0ff;
+            right: 8px;
+            color: #fff;
             font-size: 1.2em;
-            top: 50%;
-            transform: translateY(-50%);
+            top: 20px;
         }
 
         button {
             width: 100%;
-            height: 45px;
-            border-radius: 25px;
-            background: linear-gradient(45deg, #0ff, #00f);
+            height: 40px;
+            border-radius: 40px;
             border: none;
             outline: none;
             cursor: pointer;
             font-size: 1.3em;
             font-weight: 700;
-            color: #000;
-            transition: 0.3s ease-in-out;
-        }
-
-        button:hover {
-            background: linear-gradient(45deg, #00f, #0ff);
-            box-shadow: 0 0 10px #0ff;
-            transform: scale(1.05);
         }
 
         .register {
             font-size: 0.9em;
             color: #fff;
-            margin-top: 20px;
+            text-align: center;
+            margin: 20px 0 15px;
         }
 
-        .register a {
+        .register p a {
             text-decoration: none;
-            color: #0ff;
-            font-weight: bold;
+            color: #fff;
+            font-weight: 800;
         }
 
-        .register a:hover {
+        .register p a:hover {
             text-decoration: underline;
         }
 
-        /* Success Popup */
-        .success-popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.9);
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            color: #0ff;
-            box-shadow: 0 0 15px #0ff;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translate(-50%, -55%);
-            }
-
-            to {
-                opacity: 1;
-                transform: translate(-50%, -50%);
-            }
-        }
-
-        .success-popup button {
-            margin-top: 10px;
-            padding: 10px 20px;
-            border: none;
-            background: #0ff;
-            color: #000;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: 0.3s ease-in-out;
-        }
-
-        .success-popup button:hover {
-            background: #00f;
-            color: #fff;
-        }
-
-        /* Iframe Styling */
-        #webpage {
-            width: 100%;
-            height: 100vh;
-            border: none;
+        .hidden {
             display: none;
         }
     </style>
@@ -214,24 +152,26 @@
 
 <body>
 
-    <!-- Top Buttons -->
-    <div class="top-buttons" id="top-buttons">
-        <a class="whatsapp" href="https://chat.whatsapp.com/CuakMrQkRES9huI7ayhDDm" target="_blank">Join WhatsApp</a>
-        <a class="youtube" href="https://youtube.com/@namma_village_thiruvila?si=ze3XWbOC1qeEuNfQ" target="_blank">Subscribe YouTube</a>
+    <div class="button-container" id="button-container">
+        <button id="whatsapp-btn" onclick="openWhatsApp()">
+            <i class="fab fa-whatsapp"></i> WhatsApp
+        </button>
+        <button id="youtube-btn" onclick="openYouTube()">
+            <i class="fab fa-youtube"></i> YouTube
+        </button>
     </div>
 
-    <!-- Login Box -->
     <div class="box" id="login-box">
-        <form onsubmit="return validateKey(event)">
+        <form id="login-form">
             <h2>LOGIN PAGE</h2>
 
             <div class="inputbox">
                 <ion-icon name="lock-closed-outline"></ion-icon>
                 <input type="text" name="key" id="key" required>
-                <label for="key"> ENTER KEY</label>
+                <label for="key">ENTER KEY</label>
             </div>
 
-            <button type="submit">LOGIN</button>
+            <button type="submit"> LOGIN</button>
 
             <div class="register">
                 <p>BUY KEY BY SURYA BCA ? <a href="https://t.me/Suryarunl">BUY KEY</a></p>
@@ -239,36 +179,45 @@
         </form>
     </div>
 
-    <!-- Success Popup -->
-    <div class="success-popup" id="success-popup">
-        <h2>LOGIN SUCCESS ✔</h2>
-        <p>WELCOME TO THE SURYA SYSTEM</p>
-        <button onclick="showWebsite()">Continue</button>
-    </div>
-
-    <!-- Hidden Iframe to Load the Website -->
-    <iframe id="webpage" src="https://arunsurya111.github.io/hackersurya/"></iframe>
-
     <script>
-        function validateKey(event) {
-            event.preventDefault();
-            let keyInput = document.getElementById("key").value;
+    function changeButtonColors() {
+        const colors = ["#ff5733", "#33ff57", "#3357ff", "#f3ff33", "#ff33f6"];
+        let index = 0;
 
-            if (keyInput === "arun") {
-                document.getElementById("login-box").style.display = "none"; 
-                document.getElementById("success-popup").style.display = "block"; 
-                document.getElementById("top-buttons").style.display = "none"; 
-            } else {
-                alert("❌ INVALID KEY BUY KEY.");
-            }
+        setInterval(() => {
+            document.getElementById("whatsapp-btn").style.backgroundColor = colors[index];
+            document.getElementById("youtube-btn").style.backgroundColor = colors[(index + 2) % colors.length];
+
+            index = (index + 1) % colors.length;
+        }, 1000);
+    }
+
+    function openWhatsApp() {
+        window.open("https://chat.whatsapp.com/CuakMrQkRES9huI7ayhDDm", "_blank");
+    }
+
+    function openYouTube() {
+        window.open("https://youtube.com/@namma_village_thiruvila?si=mWBrJxfzek3lWiah", "_blank");
+    }
+
+    document.getElementById("login-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+        let keyInput = document.getElementById("key").value;
+
+        if (keyInput === "1612") {
+            document.getElementById("login-box").innerHTML = `
+                <h2 style="color: lime; text-align: center;">LOGIN SUCCESS</h2>
+            `;
+            setTimeout(() => {
+                window.location.href = "https://arunsurya111.github.io/hackersurya/"; // Redirect after success message
+            }, 2000);
+        } else {
+            alert("Invalid Key! Try again.");
         }
+    });
 
-        function showWebsite() {
-            document.getElementById("success-popup").style.display = "none";
-            document.getElementById("webpage").style.display = "block"; 
-        }
-    </script>
-
+    changeButtonColors();
+</script>
 </body>
 
 </html>
