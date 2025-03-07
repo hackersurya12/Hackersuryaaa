@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SURYA AI S3 ULTRA</title>
+    <title>S26 Ultra Login</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    
+
     <style>
         * {
             margin: 0;
@@ -91,6 +91,18 @@
             }
         }
 
+        .iframe-container {
+            width: 100%;
+            height: 100vh;
+            display: none;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
         h2 {
             font-size: 26px;
             color: #fff;
@@ -117,11 +129,6 @@
 
         .input-box input::placeholder {
             color: rgba(255, 255, 255, 0.7);
-        }
-
-        .input-box input:focus {
-            border-color: #fff;
-            background: rgba(255, 255, 255, 0.3);
         }
 
         .input-box i {
@@ -167,52 +174,13 @@
             text-decoration: underline;
         }
 
-        .social-buttons {
-            margin-top: 10px;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .social-buttons a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            color: white;
-            font-size: 24px;
-            text-decoration: none;
-            transition: 0.3s;
-        }
-
-        .youtube {
-            background: #ff0000;
-            box-shadow: 0 4px 10px rgba(255, 0, 0, 0.5);
-        }
-
-        .youtube:hover {
-            background: #cc0000;
-            transform: scale(1.1);
-        }
-
-        .whatsapp {
-            background: #25D366;
-            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.5);
-        }
-
-        .whatsapp:hover {
-            background: #1ebe5d;
-            transform: scale(1.1);
-        }
     </style>
 </head>
 
 <body>
 
-    <div class="login-container">
-        <div class="avatar-container">
+    <div class="login-container" id="login-container">
+        <div class="avatar-container" id="avatar-container">
             <div class="avatar-border">
                 <div class="avatar"></div>
             </div>
@@ -225,33 +193,34 @@
                 <input type="text" id="key" placeholder="ENTER YOUR KEY" required>
             </div>
             
-            <button type="submit" class="login-btn">LOGIN</button>
+            <button type="submit" class="login-btn">Login</button>
         </form>
 
         <div class="register">
-            <p>Don't have a key? <a href="https://t.me/Suryarunl">BUY KEY</a></p>
+            <p>Don't have a key? <a href="https://t.me/Suryarunl">Buy Key</a></p>
         </div>
+    </div>
 
-        <div class="social-buttons">
-            <a href="https://youtube.com/@namma_village_thiruvila?si=0tVZa77gF7UOVIji" target="_blank" class="youtube">
-                <i class="fab fa-youtube"></i>
-            </a>
-            <a href="https://chat.whatsapp.com/FGYPNIjFtoW2tEarUuLqtY" target="_blank" class="whatsapp">
-                <i class="fab fa-whatsapp"></i>
-            </a>
-        </div>
+    <div class="iframe-container" id="iframe-container">
+        <iframe id="content-frame"></iframe>
     </div>
 
     <script>
         document.getElementById("login-form").addEventListener("submit", function(event) {
             event.preventDefault();
             let keyInput = document.getElementById("key").value;
+            let avatar = document.getElementById("avatar-container");
 
             if (keyInput === "1612") {
-                alert("LOGIN SUCCESS!");
-                window.location.href = "https://arunsurya111.github.io/hackersuryaa/";
+                document.getElementById("login-container").style.display = "none";
+                document.getElementById("iframe-container").style.display = "block";
+                document.getElementById("content-frame").src = "https://arunsurya111.github.io/hackersuryaa/";
             } else {
-                alert("INVALID KEY! TRY AGAIN.");
+                avatar.classList.add("shake");
+                setTimeout(() => {
+                    avatar.classList.remove("shake");
+                }, 400);
+                alert("Invalid Key! Try again.");
             }
         });
     </script>
