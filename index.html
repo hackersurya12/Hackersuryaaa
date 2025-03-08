@@ -91,18 +91,6 @@
             }
         }
 
-        .iframe-container {
-            width: 100%;
-            height: 100vh;
-            display: none;
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
         h2 {
             font-size: 26px;
             color: #fff;
@@ -112,7 +100,7 @@
 
         .input-box {
             position: relative;
-            margin: 30px 0;
+            margin: 20px 0;
         }
 
         .input-box input {
@@ -174,13 +162,50 @@
             text-decoration: underline;
         }
 
+        .social-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            border-radius: 30px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: 0.3s ease-in-out;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 45%;
+        }
+
+    .whatsapp {
+        background: #25D366;
+    }
+
+    .whatsapp:hover {
+        background: #1da851;
+    }
+
+    .youtube {
+        background: #FF0000;
+    }
+
+    .youtube:hover {
+        background: #cc0000;
+    }
+
     </style>
 </head>
 
 <body>
 
-    <div class="login-container" id="login-container">
-        <div class="avatar-container" id="avatar-container">
+    <div class="login-container">
+        <div class="avatar-container">
             <div class="avatar-border">
                 <div class="avatar"></div>
             </div>
@@ -192,38 +217,22 @@
                 <i class="fas fa-key"></i>
                 <input type="text" id="key" placeholder="ENTER YOUR KEY" required>
             </div>
-            
             <button type="submit" class="login-btn">Login</button>
         </form>
 
         <div class="register">
             <p>Don't have a key? <a href="https://t.me/Suryarunl">Buy Key</a></p>
         </div>
+
+        <div class="social-buttons">
+            <a href="https://chat.whatsapp.com/CuakMrQkRES9huI7ayhDDm" class="social-btn whatsapp" target="_blank">
+                <i class="fab fa-whatsapp"></i> WhatsApp
+            </a>
+            <a href="https://youtube.com/@namma_village_thiruvila?si=y0kr9WkMd5umke80" class="social-btn youtube" target="_blank">
+                <i class="fab fa-youtube"></i> YouTube
+            </a>
+        </div>
     </div>
-
-    <div class="iframe-container" id="iframe-container">
-        <iframe id="content-frame"></iframe>
-    </div>
-
-    <script>
-        document.getElementById("login-form").addEventListener("submit", function(event) {
-            event.preventDefault();
-            let keyInput = document.getElementById("key").value;
-            let avatar = document.getElementById("avatar-container");
-
-            if (keyInput === "1612") {
-                document.getElementById("login-container").style.display = "none";
-                document.getElementById("iframe-container").style.display = "block";
-                document.getElementById("content-frame").src = "https://arunsurya111.github.io/hackersuryaa/";
-            } else {
-                avatar.classList.add("shake");
-                setTimeout(() => {
-                    avatar.classList.remove("shake");
-                }, 400);
-                alert("Invalid Key! Try again.");
-            }
-        });
-    </script>
 
 </body>
 
