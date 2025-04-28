@@ -1,271 +1,634 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SURYA HACK 🔐 Login</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SURYA  AI Chat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4285F4;
+      --primary-light: #5e9bf8;
+      --secondary: #34A853;
+      --accent: #FBBC05;
+      --error: #EA4335;
+      --light-bg: #f5f7fa;
+      --dark-bg: #1a1d21;
+      --chat-bg-light: #ffffff;
+      --chat-bg-dark: #242628;
+      --user-bubble-light: #4285F4;
+      --user-bubble-dark: #2c5364;
+      --bot-bubble-light: #f1f3f4;
+      --bot-bubble-dark: #2f3337;
+      --text-light: #202124;
+      --text-dark: #e8eaed;
+      --border-light: #dadce0;
+      --border-dark: #3c4043;
+    }
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Poppins", sans-serif;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        body {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: url("https://i.pinimg.com/originals/7c/e6/23/7ce623595aa44dfc86e1427410cbc07c.gif") no-repeat center center fixed;
-            background-size: cover;
-        }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--light-bg);
+      padding: 0;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+    }
 
-        .login-container {
-            width: 360px;
-            padding: 30px;
-            border-radius: 20px;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            position: relative;
-        }
+    body.dark-mode {
+      background: var(--dark-bg);
+      color: var(--text-dark);
+    }
 
-        .avatar-container {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            position: absolute;
-            top: -65px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
-            animation: glow 1.5s infinite alternate, moveUpDown 2s infinite ease-in-out;
-        }
+    .header {
+      background: var(--primary);
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 10;
+    }
 
-        .avatar-border {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 5px solid rgba(255, 255, 255, 0.6);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    .header h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-        .avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: url("https://i.pinimg.com/originals/e3/42/aa/e342aa99d92cb8660fa1918986c595d0.gif") no-repeat center;
-            background-size: cover;
-        }
+    .header h1 i {
+      font-size: 1.3rem;
+    }
 
-        @keyframes glow {
-            0% {
-                box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-            }
-            100% {
-                box-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
-            }
-        }
+    .controls {
+      display: flex;
+      gap: 10px;
+    }
 
-        @keyframes moveUpDown {
-            0% {
-                transform: translateX(-50%) translateY(0);
-            }
-            50% {
-                transform: translateX(-50%) translateY(-10px);
-            }
-            100% {
-                transform: translateX(-50%) translateY(0);
-            }
-        }
+    .control-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      padding: 8px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      color: white;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
 
-        h2 {
-            font-size: 26px;
-            color: #fff;
-            margin-top: 60px;
-            margin-bottom: 20px;
-        }
+    .control-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
 
-        .input-box {
-            position: relative;
-            margin: 20px 0;
-        }
+    .control-btn i {
+      font-size: 14px;
+    }
 
-        .input-box input {
-            width: 100%;
-            padding: 12px 45px;
-            border: 2px solid rgba(255, 255, 255, 0.6);
-            border-radius: 30px;
-            font-size: 16px;
-            outline: none;
-            background: rgba(255, 255, 255, 0.2);
-            color: #fff;
-            transition: 0.3s;
-        }
+    #chatContainer {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      height: calc(100vh - 70px);
+      background: var(--chat-bg-light);
+      transition: background 0.3s ease;
+    }
 
-        .input-box input::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
+    body.dark-mode #chatContainer {
+      background: var(--chat-bg-dark);
+    }
 
-        .input-box i {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #fff;
-            font-size: 18px;
-        }
+    #chatBox {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
 
-        .login-btn {
-            width: 100%;
-            padding: 12px;
-            border-radius: 30px;
-            border: none;
-            background: linear-gradient(45deg, #ff4d88, #ff99c8);
-            color: white;
-            font-size: 18px;
-            cursor: pointer;
-            transition: 0.3s ease-in-out;
-            box-shadow: 0 4px 15px rgba(255, 77, 136, 0.5);
-        }
+    .message {
+      max-width: 85%;
+      padding: 15px 20px;
+      border-radius: 18px;
+      position: relative;
+      word-wrap: break-word;
+      animation: messageIn 0.3s ease-out forwards;
+      opacity: 0;
+      transform: translateY(10px);
+      line-height: 1.5;
+      font-size: 15px;
+    }
 
-        .login-btn:hover {
-            transform: scale(1.05);
-            background: linear-gradient(45deg, #ff99c8, #ff4d88);
-        }
+    .user-message {
+      background-color: var(--user-bubble-light);
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+      animation-delay: 0.1s;
+    }
 
-        .register {
-            margin-top: 15px;
-            font-size: 14px;
-            color: #fff;
-        }
+    .bot-message {
+      background-color: var(--bot-bubble-light);
+      color: var(--text-light);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+      animation-delay: 0.2s;
+    }
 
-        .register a {
-            color: #ffebf0;
-            font-weight: bold;
-            text-decoration: none;
-        }
+    body.dark-mode .user-message {
+      background-color: var(--user-bubble-dark);
+      color: var(--text-dark);
+    }
 
-        .register a:hover {
-            text-decoration: underline;
-        }
+    body.dark-mode .bot-message {
+      background-color: var(--bot-bubble-dark);
+      color: var(--text-dark);
+    }
 
-        .social-buttons {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
+    .message pre {
+      background: rgba(0,0,0,0.1);
+      padding: 10px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 10px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+    }
 
-        .social-buttons a {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            text-decoration: none;
-            color: white;
-            transition: 0.3s;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
+    body.dark-mode .message pre {
+      background: rgba(255,255,255,0.1);
+    }
 
-        .whatsapp-btn {
-            background: #25D366;
-        }
+    .message code {
+      font-family: 'Courier New', monospace;
+      background: rgba(0,0,0,0.1);
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-size: 14px;
+    }
 
-        .whatsapp-btn:hover {
-            background: #1da851;
-        }
+    body.dark-mode .message code {
+      background: rgba(255,255,255,0.1);
+    }
 
-        .youtube-btn {
-            background: #FF0000;
-        }
+    .message table {
+      border-collapse: collapse;
+      margin: 10px 0;
+      width: 100%;
+    }
 
-        .youtube-btn:hover {
-            background: #cc0000;
-        }
+    .message table, .message th, .message td {
+      border: 1px solid rgba(0,0,0,0.1);
+    }
 
-        .iframe-container {
-            width: 100%;
-            height: 100vh;
-            display: none;
-        }
+    body.dark-mode .message table, 
+    body.dark-mode .message th, 
+    body.dark-mode .message td {
+      border: 1px solid rgba(255,255,255,0.1);
+    }
 
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
+    .message th, .message td {
+      padding: 8px 12px;
+      text-align: left;
+    }
 
-    </style>
+    .loading {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: inherit;
+      font-style: italic;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      background: currentColor;
+      border-radius: 50%;
+      display: inline-block;
+      animation: bounce 1.4s infinite ease-in-out;
+    }
+
+    .dot:nth-child(1) { animation-delay: 0s; }
+    .dot:nth-child(2) { animation-delay: 0.2s; }
+    .dot:nth-child(3) { animation-delay: 0.4s; }
+
+    #inputArea {
+      display: flex;
+      padding: 15px;
+      border-top: 1px solid var(--border-light);
+      background: var(--chat-bg-light);
+      transition: all 0.3s ease;
+    }
+
+    body.dark-mode #inputArea {
+      background: var(--chat-bg-dark);
+      border-top: 1px solid var(--border-dark);
+    }
+
+    #userInput {
+      flex: 1;
+      padding: 12px 18px;
+      border: 1px solid var(--border-light);
+      border-radius: 24px;
+      font-size: 15px;
+      outline: none;
+      background: var(--chat-bg-light);
+      color: var(--text-light);
+      transition: all 0.3s ease;
+    }
+
+    body.dark-mode #userInput {
+      background: var(--chat-bg-dark);
+      border-color: var(--border-dark);
+      color: var(--text-dark);
+    }
+
+    #userInput:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
+    }
+
+    #sendBtn {
+      width: 48px;
+      height: 48px;
+      margin-left: 10px;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #sendBtn:hover {
+      background-color: var(--primary-light);
+      transform: scale(1.05);
+    }
+
+    #sendBtn:active {
+      transform: scale(0.95);
+    }
+
+    #sendBtn i {
+      font-size: 18px;
+    }
+
+    /* Animations */
+    @keyframes messageIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    /* Scrollbar design */
+    #chatBox::-webkit-scrollbar {
+      width: 8px;
+    }
+    #chatBox::-webkit-scrollbar-track {
+      background: rgba(0,0,0,0.05);
+      border-radius: 4px;
+    }
+    #chatBox::-webkit-scrollbar-thumb {
+      background: rgba(0,0,0,0.2);
+      border-radius: 4px;
+    }
+    #chatBox::-webkit-scrollbar-thumb:hover {
+      background: rgba(0,0,0,0.3);
+    }
+
+    body.dark-mode #chatBox::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.05);
+    }
+    body.dark-mode #chatBox::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.2);
+    }
+    body.dark-mode #chatBox::-webkit-scrollbar-thumb:hover {
+      background: rgba(255,255,255,0.3);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .header {
+        padding: 15px;
+      }
+      
+      .header h1 {
+        font-size: 1.2rem;
+      }
+      
+      .control-btn span {
+        display: none;
+      }
+      
+      .control-btn {
+        padding: 8px;
+        width: 36px;
+        height: 36px;
+        justify-content: center;
+      }
+      
+      #chatBox {
+        padding: 15px;
+      }
+      
+      .message {
+        max-width: 90%;
+        padding: 12px 16px;
+        font-size: 14px;
+      }
+      
+      #userInput {
+        padding: 10px 15px;
+      }
+      
+      #sendBtn {
+        width: 42px;
+        height: 42px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-    <div class="login-container" id="login-container">
-        <div class="avatar-container" id="avatar-container">
-            <div class="avatar-border">
-                <div class="avatar"></div>
-            </div>
-        </div>
-        <h2>SURYA PRIVATE SERVER</h2>
+<div class="header">
+  <h1><i class="fas fa-robot"></i> SURYA  AI Chat</h1>
+  <div class="controls">
+    <button id="clearBtn" class="control-btn" title="Clear Chat">
+      <i class="fas fa-trash-alt"></i>
+      <span>Clear</span>
+    </button>
+    <button id="toggleModeBtn" class="control-btn" title="Toggle Dark Mode">
+      <i class="fas fa-moon"></i>
+      <span>Dark</span>
+    </button>
+  </div>
+</div>
 
-        <form id="login-form">
-            <div class="input-box">
-                <i class="fas fa-key"></i>
-                <input type="text" id="key" placeholder="ENTER SECRET KEY" required>
-            </div>
-            
-            <button type="submit" class="login-btn">Login</button>
-        </form>
+<div id="chatContainer">
+  <div id="chatBox"></div>
+  <div id="inputArea">
+    <input type="text" id="userInput" placeholder="Type your message..." autocomplete="off">
+    <button id="sendBtn"><i class="fas fa-paper-plane"></i></button>
+  </div>
+</div>
 
-        <div class="register">
-            <p>Don't have a key? <a href="https://t.me/Suryarunl">Buy Key</a></p>
-        </div>
+<script>
+// ====== CONFIG ======
+const GEMINI_API_KEY = 'AIzaSyBo1VVOCfFKrWl5w3Ew4UL7vHUEnmWgZt4';
+const INITIAL_PROMPT = "You are a helpful AI assistant. Provide clear, concise, and well-structured responses. Format your answers with proper markdown when appropriate (use **bold**, *italics*, `code`, ```code blocks```, and lists).";
 
-        <div class="social-buttons">
-            <a href="https://chat.whatsapp.com/CuakMrQkRES9huI7ayhDDm" target="_blank" class="whatsapp-btn">
-                <i class="fab fa-whatsapp"></i>
-            </a>
-            <a href="" target="_blank" class="youtube-btn">
-                <i class="fab fa-youtube"></i>
-            </a>
-        </div>
+// ====== ELEMENTS ======
+const chatBox = document.getElementById('chatBox');
+const userInput = document.getElementById('userInput');
+const sendBtn = document.getElementById('sendBtn');
+const clearBtn = document.getElementById('clearBtn');
+const toggleModeBtn = document.getElementById('toggleModeBtn');
+
+// ====== STATE ======
+let chatHistory = [];
+let isWaiting = false;
+
+// ====== EVENTS ======
+sendBtn.addEventListener('click', sendMessage);
+userInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter' && !isWaiting) sendMessage();
+});
+clearBtn.addEventListener('click', clearChat);
+toggleModeBtn.addEventListener('click', toggleMode);
+
+// ====== FUNCTIONS ======
+function appendMessage(sender, message, isLoading = false) {
+  const div = document.createElement('div');
+  div.className = `message ${sender === 'You' ? 'user-message' : 'bot-message'}`;
+  
+  if (isLoading) {
+    div.innerHTML = `
+      <div class="loading">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+    `;
+  } else {
+    // Enhanced markdown formatting
+    let formatted = message
+      // Headers
+      .replace(/^# (.*$)/gm, '<h1>$1</h1>')
+      .replace(/^## (.*$)/gm, '<h2>$1</h2>')
+      .replace(/^### (.*$)/gm, '<h3>$1</h3>')
+      // Bold and Italic
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.*?)\*/g, '<em>$1</em>')
+      // Code blocks
+      .replace(/```([a-z]*)\n([\s\S]*?)\n```/g, '<pre><code>$2</code></pre>')
+      // Inline code
+      .replace(/`(.*?)`/g, '<code>$1</code>')
+      // Links
+      .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>')
+      // Lists
+      .replace(/^\s*\*\s(.*$)/gm, '<li>$1</li>')
+      .replace(/^\s*-\s(.*$)/gm, '<li>$1</li>')
+      .replace(/^\s*\d\.\s(.*$)/gm, '<li>$1</li>')
+      // Line breaks
+      .replace(/\n/g, '<br>');
+    
+    // Handle lists
+    if (formatted.includes('<li>')) {
+      formatted = formatted.replace(/<li>.*?<\/li>/g, (match) => {
+        return match;
+      });
+      formatted = '<ul>' + formatted + '</ul>';
+    }
+    
+    div.innerHTML = formatted;
+  }
+  
+  chatBox.appendChild(div);
+  chatBox.scrollTop = chatBox.scrollHeight;
+  
+  // Animate the message
+  setTimeout(() => {
+    div.style.opacity = '1';
+    div.style.transform = 'translateY(0)';
+  }, 10);
+}
+
+async function sendMessage() {
+  const message = userInput.value.trim();
+  if (message === '' || isWaiting) return;
+
+  appendMessage('You', message);
+  userInput.value = '';
+  isWaiting = true;
+  
+  const loadingDiv = document.createElement('div');
+  loadingDiv.className = 'message bot-message loading';
+  loadingDiv.innerHTML = `
+    <div class="loading">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
     </div>
+  `;
+  chatBox.appendChild(loadingDiv);
+  chatBox.scrollTop = chatBox.scrollHeight;
 
-    <div class="iframe-container" id="iframe-container">
-        <iframe id="content-frame"></iframe>
-    </div>
+  try {
+    const reply = await getGeminiResponse(message);
+    loadingDiv.classList.remove('loading');
+    
+    // Format the reply with markdown
+    let formatted = reply
+      .replace(/```([a-z]*)\n([\s\S]*?)\n```/g, '<pre><code>$2</code></pre>')
+      .replace(/`(.*?)`/g, '<code>$1</code>')
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.*?)\*/g, '<em>$1</em>')
+      .replace(/\n/g, '<br>');
+    
+    loadingDiv.innerHTML = formatted;
+    
+    // Update chat history
+    chatHistory.push({
+      role: "user",
+      parts: [{ text: message }]
+    }, {
+      role: "model", 
+      parts: [{ text: reply }]
+    });
+    
+    // Limit history
+    if (chatHistory.length > 12) {
+      chatHistory = chatHistory.slice(-12);
+    }
+  } catch (error) {
+    loadingDiv.innerHTML = `<span style="color: var(--error)">Error: ${error.message}</span>`;
+    console.error('API Error:', error);
+  } finally {
+    isWaiting = false;
+    userInput.focus();
+  }
+}
 
-    <script>
-        document.getElementById("login-form").addEventListener("submit", function(event) {
-            event.preventDefault();
-            let keyInput = document.getElementById("key").value;
+async function getGeminiResponse(prompt) {
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro-latest:generateContent?key=${GEMINI_API_KEY}`;
+  
+  const contents = [
+    {
+      role: "user",
+      parts: [{ text: INITIAL_PROMPT }]
+    },
+    {
+      role: "model",
+      parts: [{ text: "Understood. I'm ready to help!" }]
+    },
+    ...chatHistory,
+    {
+      role: "user",
+      parts: [{ text: prompt }]
+    }
+  ];
 
-            if (keyInput === "1122") {
-                document.getElementById("login-container").style.display = "none";
-                document.getElementById("iframe-container").style.display = "block";
-                document.getElementById("content-frame").src = "https://suryal93.github.io/SURYA-PRIVATE-HACK-/";
-            } else {
-                alert("❌ Key Not Found In Server!");
-            }
-        });
-    </script>
+  const payload = {
+    contents,
+    generationConfig: {
+      temperature: 0.7,
+      topP: 0.9,
+      maxOutputTokens: 2000
+    },
+    safetySettings: [
+      {
+        category: "HARM_CATEGORY_DANGEROUS_CONTENT",
+        threshold: "BLOCK_MEDIUM_AND_ABOVE"
+      }
+    ]
+  };
+
+  const res = await fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  });
+
+  if (!res.ok) {
+    const errorData = await res.json();
+    throw new Error(errorData.error?.message || 'API request failed');
+  }
+
+  const data = await res.json();
+  return data.candidates?.[0]?.content?.parts?.[0]?.text || "I couldn't generate a response.";
+}
+
+function clearChat() {
+  chatBox.innerHTML = '';
+  chatHistory = [];
+  // Add a welcome message
+  setTimeout(() => {
+    appendMessage('I AM SURYA AI', "Hello! How can I assist you today?");
+  }, 300);
+}
+
+function toggleMode() {
+  document.body.classList.toggle('dark-mode');
+  
+  // Update the icon
+  const icon = toggleModeBtn.querySelector('i');
+  if (document.body.classList.contains('dark-mode')) {
+    icon.classList.remove('fa-moon');
+    icon.classList.add('fa-sun');
+    toggleModeBtn.querySelector('span').textContent = 'Light';
+  } else {
+    icon.classList.remove('fa-sun');
+    icon.classList.add('fa-moon');
+    toggleModeBtn.querySelector('span').textContent = 'Dark';
+  }
+  
+  // Animate the toggle
+  toggleModeBtn.style.transform = 'scale(0.95)';
+  setTimeout(() => {
+    toggleModeBtn.style.transform = 'scale(1)';
+  }, 200);
+}
+
+// Initial welcome message
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    appendMessage('SURYA AI', "Welcome to SURYA AI Chat! I'm here to help you with any questions or tasks you have. How can I assist you today?");
+    userInput.focus();
+  }, 500);
+});
+</script>
 
 </body>
-
 </html>
