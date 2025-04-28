@@ -15,8 +15,8 @@
       --error: #EA4335;
       --light-bg: #f5f7fa;
       --dark-bg: #1a1d21;
-      --chat-bg-light: #ffffff;
-      --chat-bg-dark: #242628;
+      --chat-bg-light: rgba(255, 255, 255, 0.85);
+      --chat-bg-dark: rgba(36, 38, 40, 0.85);
       --user-bubble-light: #4285F4;
       --user-bubble-dark: #2c5364;
       --bot-bubble-light: #f1f3f4;
@@ -42,11 +42,19 @@
       display: flex;
       flex-direction: column;
       transition: all 0.3s ease;
+      background-image: url('https://gifdb.com/images/high/naruto-background-280-x-498-gif-7uu9gfd3yqvgxpzn.gif');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
     }
 
     body.dark-mode {
       background: var(--dark-bg);
       color: var(--text-dark);
+      background-image: url('https://gifdb.com/images/high/naruto-background-280-x-498-gif-7uu9gfd3yqvgxpzn.gif');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
     }
 
     .header {
@@ -110,6 +118,7 @@
       height: calc(100vh - 70px);
       background: var(--chat-bg-light);
       transition: background 0.3s ease;
+      backdrop-filter: blur(5px);
     }
 
     body.dark-mode #chatContainer {
@@ -152,6 +161,7 @@
       align-self: flex-start;
       border-bottom-left-radius: 4px;
       animation-delay: 0.2s;
+      position: relative;
     }
 
     body.dark-mode .user-message {
@@ -294,6 +304,45 @@
 
     #sendBtn i {
       font-size: 18px;
+    }
+
+    /* Copy button styles */
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.1);
+      border: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      color: inherit;
+    }
+
+    .bot-message:hover .copy-btn {
+      opacity: 1;
+    }
+
+    .copy-btn:hover {
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .copy-btn i {
+      font-size: 12px;
+    }
+
+    body.dark-mode .copy-btn {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    body.dark-mode .copy-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
     }
 
     /* Animations */
@@ -471,6 +520,22 @@ function appendMessage(sender, message, isLoading = false) {
     }
     
     div.innerHTML = formatted;
+    
+    // Add copy button for bot messages
+    if (sender !== 'You') {
+      const copyBtn = document.createElement('button');
+      copyBtn.className = 'copy-btn';
+      copyBtn.title = 'Copy message';
+      copyBtn.innerHTML = '<i class="far fa-copy"></i>';
+      copyBtn.addEventListener('click', () => {
+        copyToClipboard(message);
+        copyBtn.innerHTML = '<i class="fas fa-check"></i>';
+        setTimeout(() => {
+          copyBtn.innerHTML = '<i class="far fa-copy"></i>';
+        }, 2000);
+      });
+      div.appendChild(copyBtn);
+    }
   }
   
   chatBox.appendChild(div);
@@ -481,6 +546,15 @@ function appendMessage(sender, message, isLoading = false) {
     div.style.opacity = '1';
     div.style.transform = 'translateY(0)';
   }, 10);
+}
+
+function copyToClipboard(text) {
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand('copy');
+  document.body.removeChild(textarea);
 }
 
 async function sendMessage() {
@@ -516,6 +590,20 @@ async function sendMessage() {
       .replace(/\n/g, '<br>');
     
     loadingDiv.innerHTML = formatted;
+    
+    // Add copy button
+    const copyBtn = document.createElement('button');
+    copyBtn.className = 'copy-btn';
+    copyBtn.title = 'Copy message';
+    copyBtn.innerHTML = '<i class="far fa-copy"></i>';
+    copyBtn.addEventListener('click', () => {
+      copyToClipboard(reply);
+      copyBtn.innerHTML = '<i class="fas fa-check"></i>';
+      setTimeout(() => {
+        copyBtn.innerHTML = '<i class="far fa-copy"></i>';
+      }, 2000);
+    });
+    loadingDiv.appendChild(copyBtn);
     
     // Update chat history
     chatHistory.push({
